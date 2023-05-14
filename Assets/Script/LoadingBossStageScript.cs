@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,8 +12,6 @@ public class LoadingBossStageScript : MonoBehaviour
 
     [SerializeField]
     private Slider loadingBar;
-    private BossStageDataControl bossDataControl;
-    private MainDataControl mainDataControl;
 
     private void Awake()
     {
@@ -28,13 +27,22 @@ public class LoadingBossStageScript : MonoBehaviour
     private void Start()
     {
         loadingBar.value = 0;
-        StartCoroutine(SaveAndLoadAsyncScene());
+        StartCoroutine(SaveAndLoadAsyncScene(NextSceneName, DataLoadAction));
     }
 
-    private IEnumerator SaveAndLoadAsyncScene()
+    private void DataLoadAction()
+    {
+        //GameManager._I.SaveBossData();
+        //GameManager._I.SaveMainData();
+        //GameManager._I.LoadBossData();
+        //GameManager._I.LoadMainData(Upgrade);
+    }
+   
+
+    private IEnumerator SaveAndLoadAsyncScene(string targetSceneName, Action action)
     {
         yield return null;
-        AsyncOperation asyncScene = SceneManager.LoadSceneAsync(NextSceneName);
+        AsyncOperation asyncScene = SceneManager.LoadSceneAsync(targetSceneName);
         asyncScene.allowSceneActivation = false;
         float timeC = 0;
         while (!asyncScene.isDone)
@@ -59,12 +67,7 @@ public class LoadingBossStageScript : MonoBehaviour
                 }
             }
         }
-        bossDataControl = FindObjectOfType<BossStageDataControl>();
-        mainDataControl = FindObjectOfType<MainDataControl>();
-        bossDataControl.SaveData();
-        mainDataControl.SaveData();
-        bossDataControl.LoadData();
-        mainDataControl.LoadData();
+        action();
         gameObject.SetActive(false);
     }
 

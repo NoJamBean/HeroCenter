@@ -19,32 +19,14 @@ public class UpgradeScript : MonoBehaviour
 
     [Header("Upgrade")]
     [SerializeField]
-    private int UpgradeLevel_;
+    public int UpgradeLevel;
     [SerializeField]
-    private int UpgradeCost_;
+    public int UpgradeCost;
     [SerializeField]
-    private int Increasevalue_;
+    public int Increasevalue;
 
-
-    public int UpgradeLevel
-    {
-        get { return UpgradeLevel_; }
-        set { UpgradeLevel_ = value; }
-    }
-    public int UpgradeCost
-    {
-        get { return UpgradeCost_; }
-        set { UpgradeCost_ = value; }
-    }
-    public int Increasevalue
-    {
-        get { return Increasevalue_; }
-        set { Increasevalue_ = value; }
-    }
 
     public string Name = "";
-
-
 
     void Update()
     {
@@ -55,24 +37,24 @@ public class UpgradeScript : MonoBehaviour
 
     public void ByTimeUpgrade()
     {
-        if (StaticInfo.UserMoney >= UpgradeCost_)
+        if (StaticInfo.mainDataContainer.UserMoney >= UpgradeCost)
         {
-            StaticInfo.UserMoney -= UpgradeCost_;
-            UpgradeLevel_ += 1;
-            UpgradeCost_ = UpgradeCost_ * 2;
-            Data.StaticInfo.PlusMoneyByTime += Increasevalue_;
+            StaticInfo.mainDataContainer.UserMoney -= UpgradeCost;
+            UpgradeLevel += 1;
+            UpgradeCost = UpgradeCost * 2;
+            StaticInfo.mainDataContainer.PlusMoneyByTime += Increasevalue;
         }
         else return;
     }
 
     public void TouchUpgrade()
     {
-        if (StaticInfo.UserMoney >= UpgradeCost_)
+        if (StaticInfo.mainDataContainer.UserMoney >= UpgradeCost)
         {
-            StaticInfo.UserMoney -= UpgradeCost_;
-            UpgradeLevel_ += 1;
-            UpgradeCost_ = UpgradeCost_ * 2;
-            Data.StaticInfo.PlusMoney += Increasevalue_;
+            StaticInfo.mainDataContainer.UserMoney -= UpgradeCost;
+            UpgradeLevel += 1;
+            UpgradeCost = UpgradeCost * 2;
+            StaticInfo.mainDataContainer.PlusMoney += Increasevalue;
         }
 
         else return;

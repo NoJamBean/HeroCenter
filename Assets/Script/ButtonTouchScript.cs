@@ -18,7 +18,7 @@ public class ButtonTouchScript : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0) == true)
         {
-            Debug.Log(Data.StaticInfo.UserMoney);
+            Debug.Log(Data.StaticInfo.mainDataContainer.UserMoney);
             Debug.Log("버튼눌림");
 
             return;
